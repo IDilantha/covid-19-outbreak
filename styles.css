@@ -1,0 +1,60 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+h3{
+    margin-left: 50px;
+}
+
+#header{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(0, 50, 212);
+}
+
+.card-group{
+    margin-top: -25px;
+    margin-bottom: 25px;
+}
+
+.card-title{
+    text-align: center;
+}
+
+.card{
+    margin: 40px;
+    border-radius: 10px;
+}
+
+.update{
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.card-text{
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.content {
+    min-height: 250px;
+    padding: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 25px;
+    padding-right: 15px;
+}
+
+.last-update{
+    font-weight: bold;
+    margin-left: 40px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.card-footer{
+    text-align: right;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
