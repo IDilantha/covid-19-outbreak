@@ -21,14 +21,14 @@ function confirmedGlobalCases() {
 
    http.onreadystatechange = function () {    
        var conf = JSON.parse(http.responseText);
-       
-       $("#gtotCaseLbl").text(conf[0].confirmed);
-       $("#gtotActiveLbl").text(conf[0].active);        
-       $("#gtotRecLbl").text(conf[0].recovered);
-       $("#gtotDeathLbl").text(conf[0].deaths);
+       var active = conf.confirmed.value - (conf.recovered.value + conf.deaths.value);
+       $("#gtotCaseLbl").text(conf.confirmed.value);
+       $("#gtotActiveLbl").text(active);        
+       $("#gtotRecLbl").text(conf.recovered.value);
+       $("#gtotDeathLbl").text(conf.deaths.value);
    };
-
-   http.open('GET','https://covid19.mathdro.id/api/confirmed');
+   
+   http.open('GET','https://covid19.mathdro.id/api');
    
    http.send();
 }
