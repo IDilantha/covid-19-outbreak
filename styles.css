@@ -2,8 +2,19 @@
     margin: 0px;
     padding: 0px;
 }
-h3{
+h3,h4{
     margin-left: 50px;
+    max-width:200px;
+    display: inline;
+}
+
+h4{
+    margin-left: 750px;
+}
+
+option{
+    display: inline;
+    font-size: large;
 }
 
 #header{
@@ -57,4 +68,8 @@ h3{
 .card-footer{
     text-align: right;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#countryDiv{
+    display: inline;
 }
