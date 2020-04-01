@@ -65,10 +65,10 @@ function confirmedCases(country) {
         if (http.readyState == 4 && http.status == 200) {
             var conf = JSON.parse(http.responseText);
             
-            $("#totCaseLbl").text(conf[0].confirmed);
-            $("#totActiveLbl").text(conf[0].active);        
-            $("#totRecLbl").text(conf[0].recovered);
-            $("#totDeathLbl").text(conf[0].deaths);
+            // $("#totCaseLbl").text(conf[0].confirmed);
+            // $("#totActiveLbl").text(conf[0].active);        
+            // $("#totRecLbl").text(conf[0].recovered);
+            // $("#totDeathLbl").text(conf[0].deaths);
            // $("#cou").text(country);
         }
     };
@@ -107,11 +107,16 @@ function test() {
             var newDeathSL = conf.data.local_new_deaths;
             var totActiveSL = conf.data.local_active_cases;
             
-            $("#totCaseLbl").text(totCasesSL);
+            $("#totCaseLbl").text(totCasesSL);            
+            $("#totHospitalLbl").text(totHospitalSL);
             $("#totActiveLbl").text(totActiveSL);
             $("#totRecLbl").text(totRecoverSL);
             $("#totDeathLbl").text(totDeathSL);
             $(".update").text(updatedDateSL+ " (Sri Lanka Time)");
+
+            $("#DailyCaseLbl").text(newSL);
+            $("#DailyRecLbl").text();
+            $("#DailyDeathLbl").text(newDeathSL);        
        }
    };
 
