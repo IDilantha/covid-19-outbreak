@@ -5,10 +5,10 @@ $(function () {
     confirmedGlobalCases();
     localCases();
     DailyCasesFunc();
-    loadChart();
+    loadDailyLocalChart();
+    //loadTable();  
+    loadGlobalTable(); 
 });
-
-window.addEventListener('load', DailyCasesChart);
 
 function confirmedGlobalCases() {
     var http = new XMLHttpRequest();
@@ -44,12 +44,14 @@ function localCases() {
             newSL = conf.data.local_new_cases;
             var newDeathSL = conf.data.local_new_deaths;
             var totActiveSL = conf.data.local_active_cases;
+            var todayNewGlobal = conf.data.global_new_cases;
 
             $("#localTotConfirmed").text(totCasesSL);
             $("#localTotHospitalized").text(totHospitalSL);
             $("#localTotActive").text(totActiveSL);
             $("#localTotRecovered").text(totRecoverSL);
             $("#localTotDeaths").text(totDeathSL);
+            $("#todayNewGlobalCases").text(todayNewGlobal);
             //$(".update").text(updatedDateSL+ " (Sri Lanka Time)");
 
             $("#todayLocalNewCases").text(newSL);
@@ -84,11 +86,11 @@ function DailyCasesFunc() {
     http.send();
 }
 
-function loadChart() {
+function loadDailyLocalChart() {
 
     var options = {
         chart: {
-            renderTo: 'container',
+            renderTo: 'container',            
             type: 'spline',
             height : 500 
         },
@@ -128,4 +130,92 @@ function loadChart() {
         options.xAxis.categories = Dates;
         var chart = new Highcharts.Chart(options);
     });
+}
+
+//local details
+function loadTable(){
+    $("#globalTable tbody tr").remove();
+
+    var http = new XMLHttpRequest();
+
+    http.onreadystatechange = function () {
+        if (http.readyState == 4 && http.status == 200) {
+            var data = JSON.parse(http.responseText).Countries;
+            for (var i = 0; i < data.length; i++) {
+                var html = '<tr>' +
+                    '<td>' + data[i].Country + '</td>' +
+                    '<td>' + data[i].NewConfirmed + '</td>' +
+                    '<td>' + data[i].TotalConfirmed + '</td>' +
+                    '<td>' + data[i].NewDeaths + '</td>' +
+                    '<td>' + data[i].TotalDeaths + '</td>' +
+                    '<td>' + data[i].NewRecovered + '</td>' +
+                    '<td>' + data[i].TotalRecovered + '</td>' +
+                    '</tr>';
+
+                $("#globalTable tbody").append(html);
+            }
+        }
+    };
+
+    http.open('GET', 'https://api.covid19api.com/summary', true);
+
+    http.send();
+}
+
+
+//Global table
+function  loadGlobalTable(){
+    axios.get('https://api.thevirustracker.com/free-api?countryTotals=ALL').then(function (response) {
+        var rawData = arrData(response.data.countryitems[0]);
+        myTable(rawData);
+    }).catch(function (error) {
+        console.log(error);
+    })
+    
+    function arrData(objData) {
+        var arrayData = Object.keys(objData).map(function(key) {
+            return objData[key]
+        });
+        return myData(arrayData);
+    }
+    
+    function myData(data) {
+        var list = [];
+        data.forEach(function(item) {
+            list.push([
+                '<img src="/flags/'+item.code+'.svg" width="40"> &nbsp '+
+                item.title,
+                item.total_cases,
+                '+'+item.total_new_cases_today,
+                '+'+item.total_new_deaths_today,
+                item.total_deaths,
+                item.total_recovered,
+                item.total_active_cases
+            ]);
+        });       
+        return list.slice(0, 182);
+    }
+  
+    function myTable(dataSet) {
+        var myDataTable = $('#datatable').DataTable({
+            data: dataSet,
+            columns: [
+                { title: "Countries and territories" },
+                { title: "Total Cases" },
+                { title: "New Cases" },
+                { title: "New Deaths" },
+                { title: "Total Deaths" },
+                { title: "Recoveries" },
+                { title: "Active" }
+            ],
+            order: [[ 1, "desc" ]]
+        });
+
+        $('#datatable td:nth-child(4)').css('background-color', 'red').css('color', 'white');
+        $('#datatable td:nth-child(3)').css('background-color', '#96ffec');
+        $('#datatable td').css('font-weight', 'bold');
+        $('#datatable th').css('color', '#fc6603');
+
+        return myDataTable;
+    }
 }
