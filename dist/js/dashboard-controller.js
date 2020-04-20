@@ -150,10 +150,9 @@ function  loadGlobalTable(){
     
     function myData(data) {
         var list = [];
-        data.forEach(function(item) {
-            var ccode = (item.code).toLowerCase();
+        data.forEach(function(item) {            
             list.push([
-                '<img src="/flags/'+ccode+'.svg" width="40"> &nbsp '+
+                '<img src="/flags/'+item.code+'.svg" width="40"> &nbsp '+
                 item.title,
                 item.total_cases,
                 '+'+item.total_new_cases_today,
