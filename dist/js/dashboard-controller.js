@@ -6,7 +6,7 @@ $(function () {
     localCases();
     DailyCasesFunc();
     loadDailyLocalChart();  
-    loadGlobalTable(); 
+    loadGlobalTable();
 });
 
 function confirmedGlobalCases() {
@@ -14,16 +14,18 @@ function confirmedGlobalCases() {
 
     http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status == 200) {
-            var conf = JSON.parse(http.responseText);
-            var active = conf.confirmed.value - (conf.recovered.value + conf.deaths.value);
-            $("#globalTotCases").text(conf.confirmed.value);
-            $("#globalTotActive").text(active);
-            $("#globalTotRecovered").text(conf.recovered.value);
-            $("#globalTotDeaths").text(conf.deaths.value);
+            var conf = JSON.parse(http.responseText).results[0];          
+            $("#globalTotCases").text(conf.total_cases);
+            $("#globalTotActive").text(conf.total_active_cases);
+            $("#todayNewGlobalCases").text(conf.total_new_cases_today);
+            $("#globalTotRecovered").text(conf.total_recovered);
+            $("#globalTotDeaths").text(conf.total_deaths);
+            $("#globalTodayNewDeaths").text(conf.total_new_deaths_today);
+            $("#globalSeriousCases").text(conf.total_serious_cases);
         }
     };
 
-    http.open('GET', 'https://covid19.mathdro.id/api', true);
+    http.open('GET', 'https://api.thevirustracker.com/free-api?global=stats', true);
 
     http.send();
 }
@@ -42,15 +44,13 @@ function localCases() {
             var totDeathSL = conf.data.local_deaths;
             newSL = conf.data.local_new_cases;
             var newDeathSL = conf.data.local_new_deaths;
-            var totActiveSL = conf.data.local_active_cases;
-            var todayNewGlobal = conf.data.global_new_cases;
+            var totActiveSL = conf.data.local_active_cases;           
 
             $("#localTotConfirmed").text(totCasesSL);
             $("#localTotHospitalized").text(totHospitalSL);
             $("#localTotActive").text(totActiveSL);
             $("#localTotRecovered").text(totRecoverSL);
             $("#localTotDeaths").text(totDeathSL);
-            $("#todayNewGlobalCases").text(todayNewGlobal);
             //$(".update").text(updatedDateSL+ " (Sri Lanka Time)");
 
             $("#todayLocalNewCases").text(newSL);
@@ -130,7 +130,6 @@ function loadDailyLocalChart() {
         var chart = new Highcharts.Chart(options);
     });
 }
-
 
 //Global table
 function  loadGlobalTable(){
