@@ -5,8 +5,7 @@ $(function () {
     confirmedGlobalCases();
     localCases();
     DailyCasesFunc();
-    loadDailyLocalChart();
-    //loadTable();  
+    loadDailyLocalChart();  
     loadGlobalTable(); 
 });
 
@@ -132,36 +131,6 @@ function loadDailyLocalChart() {
     });
 }
 
-//local details
-function loadTable(){
-    $("#globalTable tbody tr").remove();
-
-    var http = new XMLHttpRequest();
-
-    http.onreadystatechange = function () {
-        if (http.readyState == 4 && http.status == 200) {
-            var data = JSON.parse(http.responseText).Countries;
-            for (var i = 0; i < data.length; i++) {
-                var html = '<tr>' +
-                    '<td>' + data[i].Country + '</td>' +
-                    '<td>' + data[i].NewConfirmed + '</td>' +
-                    '<td>' + data[i].TotalConfirmed + '</td>' +
-                    '<td>' + data[i].NewDeaths + '</td>' +
-                    '<td>' + data[i].TotalDeaths + '</td>' +
-                    '<td>' + data[i].NewRecovered + '</td>' +
-                    '<td>' + data[i].TotalRecovered + '</td>' +
-                    '</tr>';
-
-                $("#globalTable tbody").append(html);
-            }
-        }
-    };
-
-    http.open('GET', 'https://api.covid19api.com/summary', true);
-
-    http.send();
-}
-
 
 //Global table
 function  loadGlobalTable(){
@@ -183,7 +152,7 @@ function  loadGlobalTable(){
         var list = [];
         data.forEach(function(item) {
             list.push([
-                '<img src="/flags/'+item.code+'.svg" width="40"> &nbsp '+
+                '<img src="https://idilantha.github.io/covid-19-outbreak/flags/'+item.code+'.svg" width="40"> &nbsp '+
                 item.title,
                 item.total_cases,
                 '+'+item.total_new_cases_today,
@@ -210,12 +179,6 @@ function  loadGlobalTable(){
             ],
             order: [[ 1, "desc" ]]
         });
-
-        $('#datatable td:nth-child(4)').css('background-color', 'red').css('color', 'white');
-        $('#datatable td:nth-child(3)').css('background-color', '#96ffec');
-        $('#datatable td').css('font-weight', 'bold');
-        $('#datatable th').css('color', '#fc6603');
-
         return myDataTable;
     }
 }

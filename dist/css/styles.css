@@ -74,3 +74,19 @@ option{
     display: inline;
 }
 
+#datatable th{
+    color: #fc6603;
+}
+
+#datatable td:nth-child(4){
+    background-color: red;
+    color: white;
+}
+
+#datatable td:nth-child(3){
+    background-color: #96ffec;
+}
+
+#datatable td{
+    font-weight:bold;
+}
