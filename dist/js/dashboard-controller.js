@@ -152,7 +152,7 @@ function  loadGlobalTable(){
         var list = [];
         data.forEach(function(item) {            
             list.push([
-                '<img src="/tree/master/flags/flags/lk.svg" width="40"> &nbsp '+
+                '<img src="flags/lk.svg" width="40"> &nbsp '+
                 item.title,
                 item.total_cases,
                 '+'+item.total_new_cases_today,
