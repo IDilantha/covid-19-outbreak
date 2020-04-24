@@ -1,9 +1,9 @@
-// ifrm = document.createElement("iframe"); 
-// ifrm.setAttribute("src", "http://www.freevisitorcounters.com/conversion");
-// ifrm.style.width = 0 + "px";
-// ifrm.style.height = 0 + "px";
-// ifrm.style.border = 0 + "px";
-// document.body.appendChild(ifrm);
+ifrm = document.createElement("iframe"); 
+ifrm.setAttribute("src", "http://www.freevisitorcounters.com/conversion");
+ifrm.style.width = 0 + "px";
+ifrm.style.height = 0 + "px";
+ifrm.style.border = 0 + "px";
+document.body.appendChild(ifrm);
 
 function trimTrailingSlash(string) {
     if (string != null) {
@@ -69,25 +69,23 @@ window.onload = function () {
             break;
         }
     }
-    // if (linkfound) {
-    //     linkToHide = el;
-    //     linkToHide.innerHTML = '';
-    // }
-    // if (linkfound == false) {
-    //     var div = document.createElement('div'); 
-    //     div.id = 'error_';        
-    //     //div.innerHTML = '<a href="http://www.freevisitorcounters.com/en/home/countercode/hashid/?id=7c4dd1570d06fc2cd7a3486584abc9128b7651f8">Counter Error: Do not change the code. Click here to show the correct code!</a>';
-    //     if (document.getElementById('counterimg') != null) {
-    //        // document.getElementById('counterimg').style.float = 'right';
-    //         //document.getElementById('counterimg').parentNode.insertBefore(div, document.getElementById('counterimg').nextSibling);
-    //     } else {
-    //         document.body.appendChild(div);
-    //     }
-    //     widget = document.getElementById('counterimg');
-    //     if (widget) {
-    //         widget.style.visibility = 'hidden';
-    //     }
-    // }
-    
-    //document.getElementById('counterimg').style.float = "right";
+    if (linkfound) {
+        linkToHide = el;
+        linkToHide.innerHTML = '';
+    }
+    if (linkfound == false) {
+        var div = document.createElement('div'); 
+        div.id = 'error_';        
+        div.innerHTML = '<a href="http://www.freevisitorcounters.com/en/home/countercode/hashid/?id=7c4dd1570d06fc2cd7a3486584abc9128b7651f8"></a>';
+        if (document.getElementById('counterimg') != null) {           
+            document.getElementById('counterimg').parentNode.insertBefore(div, document.getElementById('counterimg').nextSibling);
+        } else {
+            document.body.appendChild(div);
+        }
+        widget = document.getElementById('counterimg');
+        if (widget) {
+            widget.style.visibility = 'hidden';
+        }
+    }    
+    document.getElementById('counterimg').style.float = "right";
 }
