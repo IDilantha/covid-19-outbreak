@@ -12,7 +12,7 @@ $(function () {
     DailyCasesFunc();    
     localCases();    
     loadDailyLocalChart();
-    loadGlobalTable();
+    //loadGlobalTable();
 });
 
 function DailyCasesFunc() {
@@ -66,18 +66,19 @@ function confirmedGlobalCases() {
 
     http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status == 200) {
-            var conf = JSON.parse(http.responseText).results[0];
-            $("#globalTotCases").text(conf.total_cases);
-            $("#globalTotActive").text(conf.total_active_cases);
-            $("#todayNewGlobalCases").text(conf.total_new_cases_today);
-            $("#globalTotRecovered").text(conf.total_recovered);
-            $("#globalTotDeaths").text(conf.total_deaths);
-            $("#globalTodayNewDeaths").text(conf.total_new_deaths_today);
-            $("#globalSeriousCases").text(conf.total_serious_cases);
+            var conf = JSON.parse(http.responseText).Global;
+            console.log(conf);
+            $("#globalTotCases").text(conf.TotalConfirmed.toLocaleString());
+            $("#globalTotActive").text((conf.TotalConfirmed - (conf.TotalRecovered+conf.TotalDeaths)).toLocaleString());
+            $("#todayNewGlobalCases").text(conf.NewConfirmed.toLocaleString());
+            $("#globalTotRecovered").text(conf.TotalRecovered.toLocaleString());
+            $("#globalTotDeaths").text(conf.TotalDeaths.toLocaleString());
+            $("#globalTodayNewDeaths").text(conf.NewDeaths.toLocaleString());
+            $("#globalClosedCases").text((conf.TotalRecovered+conf.TotalDeaths).toLocaleString());
         }
     };
 
-    http.open('GET', 'https://api.thevirustracker.com/free-api?global=stats', true);
+    http.open('GET', 'https://api.covid19api.com/summary', true);
 
     http.send();
 }
