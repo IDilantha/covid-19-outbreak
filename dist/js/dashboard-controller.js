@@ -12,7 +12,7 @@ $(function () {
     DailyCasesFunc();    
     localCases();    
     loadDailyLocalChart();
-    //loadGlobalTable();
+    loadGlobalTable();
 });
 
 function DailyCasesFunc() {
@@ -67,7 +67,6 @@ function confirmedGlobalCases() {
     http.onreadystatechange = function () {
         if (http.readyState == 4 && http.status == 200) {
             var conf = JSON.parse(http.responseText).Global;
-            console.log(conf);
             $("#globalTotCases").text(conf.TotalConfirmed.toLocaleString());
             $("#globalTotActive").text((conf.TotalConfirmed - (conf.TotalRecovered+conf.TotalDeaths)).toLocaleString());
             $("#todayNewGlobalCases").text(conf.NewConfirmed.toLocaleString());
@@ -176,8 +175,8 @@ function loadDailyLocalChart() {
 
 //Global table
 function loadGlobalTable() {
-    axios.get('https://api.thevirustracker.com/free-api?countryTotals=ALL').then(function (response) {
-        var rawData = arrData(response.data.countryitems[0]);
+    axios.get('https://api.covid19api.com/summary').then(function (response) {             
+        var rawData = arrData(response.data.Countries);
         myTable(rawData);
     }).catch(function (error) {
         console.log(error);
@@ -194,30 +193,31 @@ function loadGlobalTable() {
         var list = [];
         data.forEach(function (item) {
             list.push([
-                '<img src="flags/' + item.code + '.svg" width="40"> &nbsp ' +
-                item.title,
-                item.total_cases,
-                '+' + item.total_new_cases_today,
-                '+' + item.total_new_deaths_today,
-                item.total_deaths,
-                item.total_recovered,
-                item.total_active_cases
+                '<img src="flags/' + item.CountryCode + '.svg" width="40"> &nbsp ' +
+                item.Country,
+                item.TotalConfirmed.toLocaleString(),
+                '+' + item.NewConfirmed.toLocaleString(),
+                '+' + item.NewDeaths.toLocaleString(),
+                item.TotalDeaths.toLocaleString(),                
+                '+' + item.NewRecovered.toLocaleString(),
+                item.TotalRecovered.toLocaleString()
             ]);
         });
-        return list.slice(0, 182);
+        return list.slice(0, 200);
     }
 
     function myTable(dataSet) {
         var myDataTable = $('#datatable').DataTable({
             data: dataSet,
             columns: [
-                { title: "Countries and territories" },
+                { title: "Countries and Territories" },
                 { title: "Total Cases" },
                 { title: "New Cases" },
                 { title: "New Deaths" },
                 { title: "Total Deaths" },
-                { title: "Recoveries" },
-                { title: "Active" }
+                { title: "New Recovered" },
+                { title: "Total Recovered" }
+                
             ],
             order: [[1, "desc"]]
         });

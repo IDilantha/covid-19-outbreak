@@ -78,13 +78,34 @@ option{
     color: #fc6603;
 }
 
+#datatable td:nth-child(1){
+    background-color: #c5c5c5;
+}
+
+#datatable td:nth-child(2){
+    background-color: #eef3a8;
+}
+
+#datatable td:nth-child(3){
+    background-color: #9dffff;
+}
+
 #datatable td:nth-child(4){
+    background-color: rgb(228, 18, 18);
+    color: white;
+}
+
+#datatable td:nth-child(5){
     background-color: red;
     color: white;
 }
 
-#datatable td:nth-child(3){
-    background-color: #96ffec;
+#datatable td:nth-child(6){
+    background-color: #02ec5c;
+}
+
+#datatable td:nth-child(7){
+    background-color: green;
 }
 
 #datatable td{
