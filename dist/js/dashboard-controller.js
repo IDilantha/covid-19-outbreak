@@ -99,15 +99,15 @@ function localCases() {
             var newDeathSL = conf.data.local_new_deaths;
             var totActiveSL = conf.data.local_active_cases;
 
-            $("#localTotConfirmed").text(totCasesSL);
-            $("#localTotHospitalized").text(totHospitalSL);
-            $("#localTotActive").text(totActiveSL);
-            $("#localTotRecovered").text(totRecoverSL);
-            $("#localTotDeaths").text(totDeathSL);
+            $("#localTotConfirmed").text(totCasesSL.toLocaleString());
+            $("#localTotHospitalized").text(totHospitalSL.toLocaleString());
+            $("#localTotActive").text(totActiveSL.toLocaleString());
+            $("#localTotRecovered").text(totRecoverSL.toLocaleString());
+            $("#localTotDeaths").text(totDeathSL.toLocaleString());
             //$(".update").text(updatedDateSL+ " (Sri Lanka Time)");
            
-            $("#todayLocalNewCases").text(newSL);            
-            $("#todayLocalDeaths").text(newDeathSL);
+            $("#todayLocalNewCases").text(newSL.toLocaleString());            
+            $("#todayLocalDeaths").text(newDeathSL.toLocaleString());
         }
     };
 
